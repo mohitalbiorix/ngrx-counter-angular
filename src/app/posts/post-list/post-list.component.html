@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-8">
-        <h3 class="mt-10">Posts List</h3>
-        <a routerLink="/add-post" class="btn btn-secondary">Add Post</a>
+        <h3 class="mt-10 text-center">Posts List</h3>
+        <a (click)="onAddPage()" class="btn btn-secondary">Add Post</a>
         <table class="table">
             <thead>
               <tr>
@@ -16,7 +16,10 @@
                 <th scope="row">{{post.id}}</th>
                 <td>{{post.title}}</td>
                 <td>{{post.description}}</td>
-                <td><button type="button" class="btn btn-warning" (click)="goEditPage(post.id)">Update Post</button></td>
+                <td class="f-left">
+                  <button type="button" class="btn btn-warning ml-10" (click)="goEditPage(post.id)">Update</button>
+                  <button type="button" class="btn btn-danger">Delete</button>
+                </td>
               </tr>
             </tbody>
           </table>

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
-import { add_post } from '../state/posts.actions';
+import { ADD_POST, EDIT_POST } from '../state/posts.actions';
 import { getPostById } from '../state/posts.selectors';
 
 @Component({
@@ -81,13 +81,25 @@ export class AddPostComponent implements OnInit {
     if (!this.postForm.valid) {
       return;
     }
-    const post: Post = {
-      title: this.postForm.value.title,
-      description: this.postForm.value.description
+    // for add post
+    if (this.action === 'ADD') {
+      const post: Post = {
+        title: this.postForm.value.title,
+        description: this.postForm.value.description
+      }
+      this.store.dispatch(ADD_POST({ post }))
     }
 
-    this.store.dispatch(add_post({ post }))
-    this.router.navigate(['/post-list'])
+    // for edit post
+    if (this.action === 'EDIT') {
+      const post: Post = {
+        title: this.postForm.value.title,
+        description: this.postForm.value.description,
+        id: this.post.id
+      }
+      this.store.dispatch(EDIT_POST({ post }))
+    }
+    this.router.navigate(['/post-list']);
   }
 
 }

@@ -24,6 +24,14 @@ export class PostListComponent implements OnInit {
     this.posts = this.store.select(getPosts);
   }
 
+  onAddPage() {
+    this.router.navigate(['add-post'], {
+      queryParams: {
+        action: 'ADD'
+      }
+    })
+  }
+
   goEditPage(postId: any) {
     this.router.navigate(['add-post'], {
       queryParams: {
