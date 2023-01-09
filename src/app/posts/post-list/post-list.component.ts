@@ -25,7 +25,7 @@ export class PostListComponent implements OnInit {
   }
 
   goEditPage(postId: any) {
-    this.router.navigate(['post-list/add'], {
+    this.router.navigate(['add-post'], {
       queryParams: {
         postId: postId,
         action: 'EDIT'
