@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './shared/component/header/header.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { environment } from 'src/environments/environment';
       maxAge:25,
       logOnly:environment.production
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
