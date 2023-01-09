@@ -99,7 +99,7 @@ export class AddPostComponent implements OnInit {
       }
       this.store.dispatch(EDIT_POST({ post }))
     }
-    this.router.navigate(['/post-list']);
+    this.router.navigate(['/post/post-list']);
   }
 
 }

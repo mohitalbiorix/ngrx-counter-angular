@@ -26,7 +26,7 @@ export class PostListComponent implements OnInit {
   }
 
   onAddPage() {
-    this.router.navigate(['add-post'], {
+    this.router.navigate(['post/add-post'], {
       queryParams: {
         action: 'ADD'
       }
@@ -34,7 +34,7 @@ export class PostListComponent implements OnInit {
   }
 
   goEditPage(postId: any) {
-    this.router.navigate(['add-post'], {
+    this.router.navigate(['post/add-post'], {
       queryParams: {
         postId: postId,
         action: 'EDIT'
