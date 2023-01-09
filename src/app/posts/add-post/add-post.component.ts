@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
@@ -20,10 +20,12 @@ export class AddPostComponent implements OnInit {
 
   constructor(
     private store:Store<AppState>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.initForm();
     this.route.queryParams.subscribe(
       query => {
         const postId = query['postId'];
@@ -35,16 +37,25 @@ export class AddPostComponent implements OnInit {
         )
       }
     )
-    this.initForm();
+    if(this.action === 'EDIT'){
+      this.updatePostForm();
+    }
+  
+  }
+
+  updatePostForm(){
+    this.postForm.get('title')?.setValue(this.post.title);
+    this.postForm.get('description')?.setValue(this.post.description);
+    console.log(this.postForm.value)
   }
 
   initForm() {
     this.postForm = new FormGroup({
-      title: new FormControl(this.action === 'EDIT' ? this.post.title : null, [
+      title: new FormControl(null, [
         Validators.required,
         Validators.minLength(6),
       ]),
-      description: new FormControl(this.action === 'EDIT' ? this.post.description : null, [
+      description: new FormControl(null, [
         Validators.required,
         Validators.minLength(10),
       ]),
@@ -65,7 +76,7 @@ export class AddPostComponent implements OnInit {
   }
   
 
-  onAddPost() {
+  onSavePost() {
     this.postForm.markAllAsTouched();
     if (!this.postForm.valid) {
       return;
@@ -76,6 +87,7 @@ export class AddPostComponent implements OnInit {
     }
 
     this.store.dispatch(add_post({ post }))
+    this.router.navigate(['/post-list'])
   }
 
 }

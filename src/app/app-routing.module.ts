@@ -17,12 +17,10 @@ const routes: Routes = [
     {
       path:'post-list',
       component:PostListComponent,
-      children:[
-        {
-          path:'add',
-          component:AddPostComponent
-        }
-      ]
+    },
+    {
+      path:'add-post',
+      component:AddPostComponent,
     }
 ];
 
