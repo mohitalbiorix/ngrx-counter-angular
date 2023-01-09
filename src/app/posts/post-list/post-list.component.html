@@ -18,7 +18,7 @@
                 <td>{{post.description}}</td>
                 <td class="f-left">
                   <button type="button" class="btn btn-warning ml-10" (click)="goEditPage(post.id)">Update</button>
-                  <button type="button" class="btn btn-danger">Delete</button>
+                  <button type="button" class="btn btn-danger" (click)="deletePost(post.id)">Delete</button>
                 </td>
               </tr>
             </tbody>

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
+import { DELETE_POST } from '../state/posts.actions';
 import { getPosts } from '../state/posts.selectors';
 
 @Component({
@@ -39,6 +40,17 @@ export class PostListComponent implements OnInit {
         action: 'EDIT'
       }
     })
+  }
+
+  deleteConfirmation(postId: any) {
+    var result = confirm("Are you sure you want to delete it?");
+    if (result) {
+      this.store.dispatch(DELETE_POST({ id: postId }))
+    }
+  }
+
+  deletePost(postId: any) {
+    this.deleteConfirmation(postId);
   }
 
 }
