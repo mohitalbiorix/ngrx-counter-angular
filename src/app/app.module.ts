@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/component/loading-spinner/loading-spinner.component';
 import { appReducer } from './store/app.state';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { appReducer } from './store/app.state';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     StoreModule.forRoot(appReducer),
     FormsModule,
@@ -30,7 +33,8 @@ import { appReducer } from './store/app.state';
       logOnly:environment.production
     }),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
