@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <a class="navbar-brand txt-wh" href="#">Ngrx Tutorial</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -8,22 +8,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" routerLink="/">Home</a>
+                <a class="nav-link txt-wh" routerLink="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/counter">Counter</a>
+                <a class="nav-link txt-wh" routerLink="/counter">Counter</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/post/post-list">Posts</a>
+                <a class="nav-link txt-wh" routerLink="/post/post-list">Posts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/auth" *ngIf="!(isAuthenticate$ | async)">Login</a>
+                <a class="nav-link txt-wh" routerLink="/auth" *ngIf="!(isAuthenticate$ | async)">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/auth/signUp">SignUp</a>
+                <a class="nav-link txt-wh" routerLink="/auth/signUp">SignUp</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" *ngIf="(isAuthenticate$ | async)">Logout</a>
+                <a class="nav-link txt-wh" href="#" *ngIf="(isAuthenticate$ | async)">Logout</a>
             </li>
         </ul>
     </div>
