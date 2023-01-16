@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    EffectsModule.forRoot([AuthEffects]),
+    // EffectsModule.forRoot([AuthEffects]),
     HttpClientModule
   ]
 })

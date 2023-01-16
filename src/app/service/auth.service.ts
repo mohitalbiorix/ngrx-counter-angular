@@ -10,6 +10,8 @@ import { AuthResponseData } from '../model/authResponseData.model';
 })
 export class AuthService {
 
+  timeInterval: any
+
   constructor(
     private http: HttpClient
   ) { }
@@ -45,6 +47,34 @@ export class AuthService {
       default:
         return 'Unknown error occurred. Please try again';
     }
+  }
+
+  setUserInLocalStorage(user: User) {
+    localStorage.setItem('userData', JSON.stringify(user))
+  }
+
+  runTimeOutInterval(user: User) {
+    const todayDate = new Date().getTime();
+    const expirationDate = user.expireDate.getTime();
+    const timeInterval = todayDate - expirationDate;
+    this.timeInterval = setTimeout(() => {
+    }, timeInterval)
+  }
+
+  getUserFromLocalStorage() {
+    const userDataString = localStorage.getItem('userData');
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      const expirationDate = new Date(userData.expirationDate);
+      const user = new User(
+        userData.email,
+        userData.token,
+        userData.localId,
+        expirationDate);
+      this.runTimeOutInterval(user);
+      return user;
+    }
+    return null;
   }
 
 
