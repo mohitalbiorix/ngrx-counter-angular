@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { seteErrorMessage, setLoadingSpinner } from 'src/app/store/shared/shared.action';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable()
@@ -19,7 +20,8 @@ export class AuthEffects {
         private actions$: Actions,
         private authService: AuthService,
         private store: Store<AppState>,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) { }
 
     /*  For login  */
@@ -33,6 +35,7 @@ export class AuthEffects {
                         this.store.dispatch(seteErrorMessage({ message: '' }));
                         const user = this.authService.formatUser(data);
                         this.authService.setUserInLocalStorage(user);
+                        this.toastr.success('Login Successfully!')
                         return loginSuccess({ user, redirect: true });
                     }),
                     catchError((errRes) => {

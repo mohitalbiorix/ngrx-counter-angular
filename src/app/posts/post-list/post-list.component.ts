@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
@@ -18,7 +19,8 @@ export class PostListComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private router:Router
+    private router:Router,
+    private toasterSvc: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +48,7 @@ export class PostListComponent implements OnInit {
     var result = confirm("Are you sure you want to delete it?");
     if (result) {
       this.store.dispatch(DELETE_POST({ id: postId }))
+      this.toasterSvc.success('Delete Post Successfully!')
     }
   }
 
