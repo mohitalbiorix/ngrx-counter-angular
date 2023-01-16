@@ -23,7 +23,8 @@
                 <a class="nav-link txt-wh" routerLink="/auth/signUp" *ngIf="!(isAuthenticate$ | async)">SignUp</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link txt-wh" href="#" *ngIf="(isAuthenticate$ | async)">Logout</a>
+                <a class="nav-link txt-wh" href="#" *ngIf="(isAuthenticate$ | async)"
+                (click)="userLogout()">Logout</a>
             </li>
         </ul>
     </div>
