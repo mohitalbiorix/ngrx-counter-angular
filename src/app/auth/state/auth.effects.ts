@@ -76,6 +76,7 @@ export class AuthEffects {
                         this.store.dispatch(seteErrorMessage({ message: '' }));
                         const user = this.authService.formatUser(data);
                         this.authService.setUserInLocalStorage(user);
+                        this.toastr.success('Create User Successfully!')
                         return signupSuccess({ user, redirect: true });
                     }),
                     catchError((errRes) => {
