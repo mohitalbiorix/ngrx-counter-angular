@@ -3,8 +3,8 @@ import { ofType } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { AuthService } from 'src/app/service/auth.service';
-import { loginStart, loginSuccess, signupStart, signupSuccess } from './auth.actions';
-import { exhaustMap, map, catchError, tap  } from 'rxjs/operators';
+import { autoLogin, loginStart, loginSuccess, signupStart, signupSuccess } from './auth.actions';
+import { exhaustMap, map, catchError, tap, mergeMap  } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { seteErrorMessage, setLoadingSpinner } from 'src/app/store/shared/shared.action';
@@ -32,6 +32,7 @@ export class AuthEffects {
                         this.store.dispatch(setLoadingSpinner({ status: false }));
                         this.store.dispatch(seteErrorMessage({ message: '' }));
                         const user = this.authService.formatUser(data);
+                        this.authService.setUserInLocalStorage(user);
                         return loginSuccess({ user });
                     }),
                     catchError((errRes) => {
@@ -69,6 +70,7 @@ export class AuthEffects {
                         this.store.dispatch(setLoadingSpinner({ status: false }));
                         this.store.dispatch(seteErrorMessage({ message: '' }));
                         const user = this.authService.formatUser(data);
+                        this.authService.setUserInLocalStorage(user);
                         return signupSuccess({ user });
                     }),
                     catchError((errRes) => {
@@ -83,17 +85,33 @@ export class AuthEffects {
         );
     });
 
+    /*
+            signupRedirect$ = createEffect(
+                () => {
+                    return this.actions$.pipe(
+                        ofType(signupSuccess),
+                        tap((action) => {
+                            this.router.navigate(['/'])
+                        })
+                    )
+                },
+                { dispatch: false }
+            )
+    */
 
-    // signupRedirect$ = createEffect(
-    //     () => {
-    //         return this.actions$.pipe(
-    //             ofType(signupSuccess),
-    //             tap((action) => {
-    //                 this.router.navigate(['/'])
-    //             })
-    //         )
-    //     },
-    //     { dispatch: false }
-    // )
+   /*  for autologin */
+    autoLogin$ = createEffect(
+        () => {
+            return this.actions$.pipe(
+                ofType(autoLogin),
+                mergeMap((action) => {
+                    const user: any = this.authService.getUserFromLocalStorage();
+                    return of(loginSuccess({ user }))
+                })
+            );
+        }
+    );
 
+    
+    
 }

@@ -13,6 +13,8 @@ import { LoadingSpinnerComponent } from './shared/component/loading-spinner/load
 import { appReducer } from './store/app.state';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth/state/auth.effects';
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     AppRoutingModule,
     StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot([AuthEffects]),
     FormsModule,
     StoreDevtoolsModule.instrument({
       maxAge:25,
