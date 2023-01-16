@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { setLoadingSpinner } from 'src/app/store/shared/shared.action';
+import { signupStart } from '../state/auth.actions';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,7 +13,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SignUpComponent implements OnInit {
 
   signUpForm! : FormGroup;
-  constructor() { }
+  constructor(
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit(): void {
     this.initSignupform()
@@ -29,6 +35,12 @@ export class SignUpComponent implements OnInit {
     if(!this.signUpForm.valid){
       return;
     }
+    const signupData = {
+      email: this.signUpForm.value.email,
+      password: this.signUpForm.value.password
+    };
+    this.store.dispatch(setLoadingSpinner({ status: true }));
+    this.store.dispatch(signupStart({ email: signupData.email, password: signupData.password }));
   }
 
 }
