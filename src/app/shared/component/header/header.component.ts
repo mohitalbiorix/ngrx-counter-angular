@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { autoLogout } from 'src/app/auth/state/auth.actions';
 import { isAuthenticated } from 'src/app/auth/state/auth.selector';
@@ -15,7 +16,8 @@ export class HeaderComponent implements OnInit {
   isAuthenticate$! : Observable<boolean>
 
   constructor(
-    private store:Store<AppState>
+    private store:Store<AppState>,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +26,7 @@ export class HeaderComponent implements OnInit {
 
   userLogout() {
     this.store.dispatch(autoLogout())
+    this.toastr.success('LogOut Successfully!')
   }
   
 }

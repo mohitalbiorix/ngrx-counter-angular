@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
 import { ADD_POST, EDIT_POST } from '../state/posts.actions';
@@ -21,7 +22,8 @@ export class AddPostComponent implements OnInit {
   constructor(
     private store:Store<AppState>,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toasterSvc: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -88,6 +90,7 @@ export class AddPostComponent implements OnInit {
         description: this.postForm.value.description
       }
       this.store.dispatch(ADD_POST({ post }))
+      this.toasterSvc.success('Add Post Successfully!')
     }
 
     // for edit post
@@ -98,6 +101,7 @@ export class AddPostComponent implements OnInit {
         id: this.post.id
       }
       this.store.dispatch(EDIT_POST({ post }))
+      this.toasterSvc.success('Edit Post Successfully!')
     }
     this.router.navigate(['/post/post-list']);
   }
