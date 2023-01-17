@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
 import { setLoadingSpinner } from 'src/app/store/shared/shared.action';
-import { addPosts, editPosts } from '../state/posts.actions';
+import { addPosts, updatePosts } from '../state/posts.actions';
 import { getPostById } from '../state/posts.selectors';
 
 @Component({
@@ -80,12 +80,12 @@ export class AddPostComponent implements OnInit {
   
 
   onSavePost() {
-    this.store.dispatch(setLoadingSpinner({ status: true }));
     this.postForm.markAllAsTouched();
     if (!this.postForm.valid) {
       return;
     }
     // for add post
+    this.store.dispatch(setLoadingSpinner({ status: true }));
     if (this.action === 'ADD') {
       const post: Post = {
         title: this.postForm.value.title,
@@ -102,7 +102,7 @@ export class AddPostComponent implements OnInit {
         description: this.postForm.value.description,
         id: this.post.id
       }
-      this.store.dispatch(editPosts({ post }))
+      this.store.dispatch(updatePosts({ post }))
       this.toasterSvc.success('Edit Post Successfully!')
     }
     this.router.navigate(['/post/post-list']);

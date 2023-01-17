@@ -2,11 +2,11 @@ import { Injectable } from "@angular/core";
 import { createEffect, ofType } from "@ngrx/effects";
 import { Actions } from '@ngrx/effects';
 import { Store } from "@ngrx/store";
-import { exhaustMap, map, mergeMap } from "rxjs";
+import { exhaustMap, map, mergeMap, switchMap } from "rxjs";
 import { PostsService } from "src/app/service/posts.service";
 import { AppState } from "src/app/store/app.state";
 import { setLoadingSpinner } from "src/app/store/shared/shared.action";
-import { addPosts, addPostSuccess, loadPosts, loadPostSuccess } from "./posts.actions";
+import { addPosts, addPostSuccess, deletePosts, deletePostSuccess, loadPosts, loadPostSuccess, updatePosts, updatePostSuccess } from "./posts.actions";
 
 @Injectable()
 export class PostEffects {
@@ -37,6 +37,33 @@ export class PostEffects {
                     map((data) => {
                         const post = { ...action.post, id: data.name };
                         return addPostSuccess({ post })
+                    })
+                )
+            })
+        )
+    })
+
+    updatePosts$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(updatePosts),
+            switchMap((action) => {
+                return this.postService.updatePosts(action.post).pipe(
+                    map((post: any) => {
+                        return updatePostSuccess({ post: action.post })
+                    })
+                )
+            })
+        )
+    })
+
+    deletePosts$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(deletePosts),
+            switchMap((action) => {
+                return this.postService.deletePosts(action.id).pipe(
+                    map((data) => {
+                        this.store.dispatch(setLoadingSpinner({ status: false }));
+                        return deletePostSuccess({ id: action.id })
                     })
                 )
             })

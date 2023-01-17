@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
+import { setLoadingSpinner } from 'src/app/store/shared/shared.action';
 import { deletePosts, loadPosts } from '../state/posts.actions';
 import { getPosts } from '../state/posts.selectors';
 
@@ -48,6 +49,7 @@ export class PostListComponent implements OnInit {
   deleteConfirmation(postId: any) {
     var result = confirm("Are you sure you want to delete it?");
     if (result) {
+      this.store.dispatch(setLoadingSpinner({ status: true }));
       this.store.dispatch(deletePosts({ id: postId }));
       this.toasterSvc.success('Delete Post Successfully!');
     }
