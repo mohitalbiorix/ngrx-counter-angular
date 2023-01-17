@@ -36,6 +36,7 @@ export class PostEffects {
                 return this.postService.addPosts(action.post).pipe(
                     map((data) => {
                         const post = { ...action.post, id: data.name };
+                        this.store.dispatch(setLoadingSpinner({ status: false }));
                         return addPostSuccess({ post })
                     })
                 )
@@ -49,6 +50,7 @@ export class PostEffects {
             switchMap((action) => {
                 return this.postService.updatePosts(action.post).pipe(
                     map((post: any) => {
+                        this.store.dispatch(setLoadingSpinner({ status: false }));
                         return updatePostSuccess({ post: action.post })
                     })
                 )
