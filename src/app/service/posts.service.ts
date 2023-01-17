@@ -14,11 +14,19 @@ export class PostsService {
 
   getPosts(): Observable<Post[]> {
     return this.http
-      .get<Post[]>(`https://jsonplaceholder.typicode.com/posts`)
+      .get<Post[]>(`https://vue-completecourse.firebaseio.com/posts.json`)
       .pipe(
-        map((posts) => {
+        map((data) => {
+          const posts: Post[] = [];
+          for (let key in data) {
+            posts.push({ ...data[key], id: key });
+          }
           return posts;
         })
       );
+  }
+
+  addPosts(post: Post): Observable<{ name: string }> {
+    return this.http.post<{ name: string }>(`https://vue-completecourse.firebaseio.com/posts.json`, post);
   }
 }

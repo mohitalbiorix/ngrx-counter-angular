@@ -16,7 +16,7 @@
               <tr *ngFor="let post of (posts | async)">
                 <th scope="row">{{post.id}}</th>
                 <td>{{post.title}}</td>
-                <td>{{post.body}}</td>
+                <td>{{post.description}}</td>
                 <td>
                   <i class="bi bi-pencil-square" (click)="goEditPage(post.id)"></i>
                 </td>

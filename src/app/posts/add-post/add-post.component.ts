@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
+import { setLoadingSpinner } from 'src/app/store/shared/shared.action';
 import { addPosts, editPosts } from '../state/posts.actions';
 import { getPostById } from '../state/posts.selectors';
 
@@ -47,7 +48,7 @@ export class AddPostComponent implements OnInit {
 
   updatePostForm(){
     this.postForm.get('title')?.setValue(this.post.title);
-    this.postForm.get('description')?.setValue(this.post.body);
+    this.postForm.get('description')?.setValue(this.post.description);
     console.log(this.postForm.value)
   }
 
@@ -79,6 +80,7 @@ export class AddPostComponent implements OnInit {
   
 
   onSavePost() {
+    this.store.dispatch(setLoadingSpinner({ status: true }));
     this.postForm.markAllAsTouched();
     if (!this.postForm.valid) {
       return;
@@ -87,7 +89,7 @@ export class AddPostComponent implements OnInit {
     if (this.action === 'ADD') {
       const post: Post = {
         title: this.postForm.value.title,
-        body: this.postForm.value.description
+        description: this.postForm.value.description
       }
       this.store.dispatch(addPosts({ post }))
       this.toasterSvc.success('Add Post Successfully!')
@@ -97,7 +99,7 @@ export class AddPostComponent implements OnInit {
     if (this.action === 'EDIT') {
       const post: Post = {
         title: this.postForm.value.title,
-        body: this.postForm.value.description,
+        description: this.postForm.value.description,
         id: this.post.id
       }
       this.store.dispatch(editPosts({ post }))
