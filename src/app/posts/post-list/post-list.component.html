@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-md-8">
         <h3 class="mt-10 text-center">Posts List</h3>
-        <a  class="btn btn-primary" (click)="onAddPage()"><i class="bi bi-plus" ></i></a>
+        <a  class="btn btn-outline-dark" (click)="onAddPage()"><i class="fa fa-plus" aria-hidden="true"></i></a>
         <table class="table">
             <thead>
               <tr>
-                <th scope="col">#</th>
+                <th scope="col">Id</th>
                 <th scope="col">Title</th>
-                <th scope="col">Descripon</th>
+                <th scope="col">Description</th>
                 <th scope="col" colspan="2">Actions</th>
                 <th></th>
               </tr>
@@ -18,10 +18,10 @@
                 <td>{{post.title}}</td>
                 <td>{{post.description}}</td>
                 <td>
-                  <i class="bi bi-pencil-square" (click)="goEditPage(post.id)"></i>
+                  <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="goEditPage(post.id)"></i>
                 </td>
                 <td>
-                  <i class="bi bi-archive-fill text-danger" (click)="deletePost(post.id)"></i>
+                  <i class="fa fa-trash-o text-danger" aria-hidden="true" (click)="deletePost(post.id)"></i>
                 </td>
               </tr>
             </tbody>
