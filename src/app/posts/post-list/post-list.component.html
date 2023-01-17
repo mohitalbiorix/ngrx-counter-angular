@@ -1,24 +1,27 @@
 <div class="row">
     <div class="col-md-8">
         <h3 class="mt-10 text-center">Posts List</h3>
-        <a (click)="onAddPage()" class="btn btn-secondary">Add Post</a>
+        <a  class="btn btn-primary" (click)="onAddPage()"><i class="bi bi-plus" ></i></a>
         <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Descripon</th>
-                <th scope="col">Actions</th>
+                <th scope="col" colspan="2">Actions</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let post of (posts | async)">
                 <th scope="row">{{post.id}}</th>
                 <td>{{post.title}}</td>
-                <td>{{post.description}}</td>
-                <td class="f-left">
-                  <button type="button" class="btn btn-warning ml-10" (click)="goEditPage(post.id)">Update</button>
-                  <button type="button" class="btn btn-danger" (click)="deletePost(post.id)">Delete</button>
+                <td>{{post.body}}</td>
+                <td>
+                  <i class="bi bi-pencil-square" (click)="goEditPage(post.id)"></i>
+                </td>
+                <td>
+                  <i class="bi bi-archive-fill text-danger" (click)="deletePost(post.id)"></i>
                 </td>
               </tr>
             </tbody>

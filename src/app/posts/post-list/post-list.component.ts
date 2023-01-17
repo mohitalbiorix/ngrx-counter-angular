@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
-import { DELETE_POST } from '../state/posts.actions';
+import { deletePosts, loadPosts } from '../state/posts.actions';
 import { getPosts } from '../state/posts.selectors';
 
 @Component({
@@ -25,6 +25,7 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.posts = this.store.select(getPosts);
+    this.store.dispatch(loadPosts());
   }
 
   onAddPage() {
@@ -47,8 +48,8 @@ export class PostListComponent implements OnInit {
   deleteConfirmation(postId: any) {
     var result = confirm("Are you sure you want to delete it?");
     if (result) {
-      this.store.dispatch(DELETE_POST({ id: postId }))
-      this.toasterSvc.success('Delete Post Successfully!')
+      this.store.dispatch(deletePosts({ id: postId }));
+      this.toasterSvc.success('Delete Post Successfully!');
     }
   }
 

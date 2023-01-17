@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
-import { ADD_POST, EDIT_POST } from '../state/posts.actions';
+import { addPosts, editPosts } from '../state/posts.actions';
 import { getPostById } from '../state/posts.selectors';
 
 @Component({
@@ -47,7 +47,7 @@ export class AddPostComponent implements OnInit {
 
   updatePostForm(){
     this.postForm.get('title')?.setValue(this.post.title);
-    this.postForm.get('description')?.setValue(this.post.description);
+    this.postForm.get('description')?.setValue(this.post.body);
     console.log(this.postForm.value)
   }
 
@@ -87,9 +87,9 @@ export class AddPostComponent implements OnInit {
     if (this.action === 'ADD') {
       const post: Post = {
         title: this.postForm.value.title,
-        description: this.postForm.value.description
+        body: this.postForm.value.description
       }
-      this.store.dispatch(ADD_POST({ post }))
+      this.store.dispatch(addPosts({ post }))
       this.toasterSvc.success('Add Post Successfully!')
     }
 
@@ -97,10 +97,10 @@ export class AddPostComponent implements OnInit {
     if (this.action === 'EDIT') {
       const post: Post = {
         title: this.postForm.value.title,
-        description: this.postForm.value.description,
+        body: this.postForm.value.description,
         id: this.post.id
       }
-      this.store.dispatch(EDIT_POST({ post }))
+      this.store.dispatch(editPosts({ post }))
       this.toasterSvc.success('Edit Post Successfully!')
     }
     this.router.navigate(['/post/post-list']);
