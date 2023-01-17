@@ -49,7 +49,6 @@ export class AddPostComponent implements OnInit {
   updatePostForm(){
     this.postForm.get('title')?.setValue(this.post.title);
     this.postForm.get('description')?.setValue(this.post.description);
-    console.log(this.postForm.value)
   }
 
   initForm() {
