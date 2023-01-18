@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
 import { changeChannelName, customIncrement } from '../state/counter.actions';
@@ -17,7 +18,8 @@ export class CustomCounterInputComponent implements OnInit {
   channelName!: string
   channelName$! : Observable<string>;
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private toasterService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,12 @@ export class CustomCounterInputComponent implements OnInit {
   }
 
   addNumber() {
-    this.store.dispatch(customIncrement({ count: +this.num }))
+    if(!this.num){
+      this.toasterService.warning("Please enter a number!")
+    }
+    else{
+      this.store.dispatch(customIncrement({ count: +this.num }))
+    }
   }
 
   changeChannelName() {

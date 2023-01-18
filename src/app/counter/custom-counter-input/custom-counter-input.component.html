@@ -1,6 +1,6 @@
 <div>
     <input type="number" placeholder="enter value" [(ngModel)]="num" />
-    <button class="btn btn-primary" (click)="addNumber()">Add to counter</button>
+    <button class="btn btn-outline-primary f-500" (click)="addNumber()"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
 </div>
 
 <div>
@@ -8,5 +8,5 @@
         <!-- <h3>ChannelName is: {{ channelName}}</h3> -->
         <h3>ChannelName is: {{ channelName$ | async }}</h3>
     </div>
-    <button class="btn btn-secondary" (click)="changeChannelName()">Change Channel</button>
+    <button class="btn btn-outline-secondary f-500" (click)="changeChannelName()">Change Channel</button>
 </div>
