@@ -15,8 +15,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/state/auth.effects';
-import { AuthtokenInterceptor } from './service/authtoken.interceptor';
+import { AuthtokenInterceptor } from './service/interceptor/authtoken.interceptor';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './store/router/custom-serializer';
 
 
 @NgModule({
@@ -40,7 +41,9 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomSerializer
+    })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, 
