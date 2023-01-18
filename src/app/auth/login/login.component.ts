@@ -30,6 +30,10 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit() {
+    this.loginForm.markAllAsTouched();
+    if (this.loginForm.invalid) {
+      return;
+    }
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
     this.store.dispatch(setLoadingSpinner({ status: true }))

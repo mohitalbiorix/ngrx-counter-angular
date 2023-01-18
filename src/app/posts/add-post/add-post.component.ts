@@ -107,4 +107,8 @@ export class AddPostComponent implements OnInit {
     this.router.navigate(['/post/post-list']);
   }
 
+  onBackToPosts() {
+    window.history.back();
+  }
+
 }

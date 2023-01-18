@@ -8,23 +8,23 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link txt-wh" routerLink="/">Home</a>
+                <a class="nav-link txt-wh" routerLink="/">HOME <i class="fa fa-home" aria-hidden="true"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link txt-wh" routerLink="/counter">Counter</a>
+                <a class="nav-link txt-wh" routerLink="/counter">COUNTER <i class="fa fa-calculator" aria-hidden="true"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link txt-wh" routerLink="/post/post-list">Posts</a>
+                <a class="nav-link txt-wh" routerLink="/post/post-list">POSTS <i class="fa fa-clipboard" aria-hidden="true"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link txt-wh" routerLink="/auth" *ngIf="!(isAuthenticate$ | async)">Login</a>
+                <a class="nav-link txt-wh" routerLink="/auth" *ngIf="!(isAuthenticate$ | async)">LOGIN <i class="fa fa-sign-in" aria-hidden="true"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link txt-wh" routerLink="/auth/signUp" *ngIf="!(isAuthenticate$ | async)">SignUp</a>
+                <a class="nav-link txt-wh" routerLink="/auth/signUp" *ngIf="!(isAuthenticate$ | async)">SIGNUP <i class="fa fa-user-plus" aria-hidden="true"></i> </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link txt-wh" href="#" *ngIf="(isAuthenticate$ | async)"
-                (click)="userLogout()">Logout</a>
+                (click)="userLogout()">LOGOUT <i class="fa fa-sign-out" aria-hidden="true"></i></a>
             </li>
         </ul>
     </div>

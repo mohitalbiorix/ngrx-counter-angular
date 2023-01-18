@@ -3,33 +3,35 @@
     <h3 class="mt-10 text-center">Login</h3>
     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
       <div class="mb-3">
-        <label>Email</label>
-        <input type="text" class="form-control" formControlName="email" />
+        <label class="f-500">Email <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="email" 
+        [ngClass]="{'invalid-input': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)}"/>
         <div *ngIf="
               loginForm.get('email')?.touched && !loginForm.get('email')?.valid
             ">
           <div *ngIf="loginForm.get('email')?.errors?.['required']" class="text-danger">
-            <p>* Email is required</p>
+            <p class="text-danger  f-500">* Email is required</p>
           </div>
           <div *ngIf="loginForm.get('email')?.errors?.['email']">
-            <p class="text-danger">* Invalid Email</p>
+            <p class="text-danger f-500">* Invalid Email</p>
           </div>
         </div>
       </div>
       <div class="mb-3">
-        <label>Password</label>
-        <input type="password" class="form-control" formControlName="password" />
+        <label class="f-500">Password <span class="text-danger">*</span></label>
+        <input type="password" class="form-control" formControlName="password"
+        [ngClass]="{'invalid-input': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)}" />
         <div *ngIf="
               loginForm.get('password')?.touched &&
               !loginForm.get('password')?.valid
             ">
-          <div class="text-danger">* Password is required</div>
+          <div class="text-danger f-500">* Password is required</div>
         </div>
       </div>
 
       <div class="mb-3">
-        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
-          Login
+        <button type="submit" class="btn btn-outline-primary f-500">
+          Login <i class="fa fa-sign-in" aria-hidden="true"></i>
         </button>
       </div>
     </form>

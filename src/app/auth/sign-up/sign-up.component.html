@@ -4,54 +4,58 @@
         <h3 class="mt-10 text-center">SignUp</h3>
         <form [formGroup]="signUpForm" (ngSubmit)="onSignUpSubmit()">
             <div class="mb-3">
-                <label>First Name *</label>
-                <input type="text" class="form-control" formControlName="firstame" />
+                <label class="f-500">First Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="firstame" 
+                [ngClass]="{'invalid-input': signUpForm.get('firstame')?.invalid && (signUpForm.get('firstame')?.dirty || signUpForm.get('firstame')?.touched)}"/>
                 <div
                   *ngIf="
                     signUpForm.get('firstame')?.touched && !signUpForm.get('firstame')?.valid
                   "
                 >
                   <div *ngIf="signUpForm.get('firstame')?.errors?.['required']">
-                   <p class="text-danger"> * FirstName is required</p>
+                   <p class="text-danger f-500"> * FirstName is required</p>
                   </div>
                 </div>
               </div>
               <div class="mb-3">
-                <label>Last Name *</label>
-                <input type="text" class="form-control" formControlName="lastame" />
+                <label class="f-500">Last Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="lastame" 
+                [ngClass]="{'invalid-input': signUpForm.get('lastame')?.invalid && (signUpForm.get('lastame')?.dirty || signUpForm.get('lastame')?.touched)}"/>
                 <div
                   *ngIf="
                     signUpForm.get('lastame')?.touched && !signUpForm.get('lastame')?.valid
                   "
                 >
                   <div *ngIf="signUpForm.get('lastame')?.errors?.['required']">
-                    <p class="text-danger"> * LastName is required</p>
+                    <p class="text-danger f-500"> * LastName is required</p>
                   </div>
                 </div>
               </div>
           <div class="mb-3">
-            <label>Email *</label>
-            <input type="email" class="form-control" formControlName="email" />
+            <label class="f-500">Email <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" formControlName="email" 
+            [ngClass]="{'invalid-input': signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)}"/>
             <div
               *ngIf="
                 signUpForm.get('email')?.touched && !signUpForm.get('email')?.valid
               "
             >
               <div *ngIf="signUpForm.get('email')?.errors?.['required']">
-                <p class="text-danger"> * Email is required</p>
+                <p class="text-danger f-500"> * Email is required</p>
 
               </div>
               <div *ngIf="signUpForm.get('email')?.errors?.['email']">
-                <p class="text-danger"> * Invalid Email</p>
+                <p class="text-danger f-500"> * Invalid Email</p>
               </div>
             </div>
           </div>
           <div class="mb-3">
-            <label>Password *</label>
+            <label class="f-500">Password <span class="text-danger">*</span></label>
             <input
               type="password"
               class="form-control"
               formControlName="password"
+              [ngClass]="{'invalid-input': signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched)}"
             />
             <div
               *ngIf="
@@ -59,15 +63,15 @@
                 !signUpForm.get('password')?.valid
               "
             >
-              <div> <p class="text-danger"> * Password is required</p></div>
+              <div> <p class="text-danger f-500"> * Password is required</p></div>
             </div>
           </div>
           <div class="mb-3">
             <button
               type="submit"
-              class="btn btn-primary"
+              class="btn btn-outline-primary f-500"
             >
-              SignUp
+              SignUp <i class="fa fa-user-plus" aria-hidden="true"></i>
             </button>
           </div>
         </form>
