@@ -5,26 +5,29 @@
             <h3 class="card-title text-center">Add Post</h3>
             <form [formGroup]="postForm">
               <div class="mb-3">
-                  <label>Title *</label>
-                  <input type="text" class="form-control" formControlName="title"/>
+                  <label class="f-500">Title <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="title" 
+                  [ngClass]="{'invalid-input': postForm.get('title')?.invalid && (postForm.get('title')?.dirty || postForm.get('title')?.touched)}"/>
                   <div
                   *ngIf="postForm.get('title')?.touched && !postForm.get('title')?.valid"
                 >
                   <div *ngIf="postForm.get('title')?.errors?.['required']">
-                    <span class="text-danger">* Title is required</span>
+                    <span class="text-danger f-500">* Title is required</span>
                   </div>
                   <div *ngIf="postForm.get('title')?.errors?.['minlength']">
-                    <span class="text-danger">* Title should be minimum 6 characters</span>
+                    <span class="text-danger f-500">* Title should be minimum 6 characters</span>
                   </div>
                 </div>
               </div>
               <div class="mb-3">
-                  <label>Description *</label>
-                  <textarea type="text" class="form-control" formControlName="description"></textarea>
-                  <div class="text-danger">{{ showDescriptionErrors() }}</div>
+                  <label class="f-500">Description <span class="text-danger">*</span></label>
+                  <textarea type="text" class="form-control" formControlName="description"
+                  [ngClass]="{'invalid-input': postForm.get('description')?.invalid && (postForm.get('description')?.dirty || postForm.get('description')?.touched)}"></textarea>
+                  <div class="text-danger f-500">{{ showDescriptionErrors() }}</div>
               </div>
               <div class="mb-3">
-                  <button type="submit" class="btn btn-success" (click)="onSavePost()">Save</button>
+                <button type="submit" class="btn btn-outline-secondary f-500" (click)="onBackToPosts()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back </button>
+                  <button type="submit" class="btn btn-outline-success ml-10 f-500" (click)="onSavePost()">Save <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
               </div>
           </form>
           </div>
