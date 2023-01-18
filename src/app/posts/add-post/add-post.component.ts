@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Post } from 'src/app/model/posts.model';
@@ -23,32 +23,43 @@ export class AddPostComponent implements OnInit {
   constructor(
     private store:Store<AppState>,
     private route: ActivatedRoute,
-    private router: Router,
     private toasterSvc: ToastrService
   ) { }
 
   ngOnInit(): void {
     this.initForm();
+    /* Manage by ngrx router store */
+    this.store.select(getPostById).subscribe(
+      (post) => {
+        if (post) {
+          this.post = post;
+          console.log(this.post)
+        }
+      }
+    )
+
     this.route.queryParams.subscribe(
       query => {
-        const postId = query['postId'];
+        // const postId = query['postId'];
         this.action = query['action'];
-        this.store.select(getPostById, { postId }).subscribe(
-          data => {
-            this.post = data;
-          }
-        )
+        /* 
+          Manage by angular route not ngrx  
+            this.store.select(getPostById, { postId }).subscribe(
+              data => {
+                this.post = data;
+              }
+            ) 
+        */
       }
     )
     if(this.action === 'EDIT'){
       this.updatePostForm();
     }
-  
   }
 
   updatePostForm(){
-    this.postForm.get('title')?.setValue(this.post.title);
-    this.postForm.get('description')?.setValue(this.post.description);
+    this.postForm.get('title')?.setValue(this.post?.title);
+    this.postForm.get('description')?.setValue(this.post?.description);
   }
 
   initForm() {
@@ -104,7 +115,6 @@ export class AddPostComponent implements OnInit {
       this.store.dispatch(updatePosts({ post }))
       this.toasterSvc.success('Edit Post Successfully!')
     }
-    this.router.navigate(['/post/post-list']);
   }
 
   onBackToPosts() {

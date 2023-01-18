@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { createEffect, ofType } from "@ngrx/effects";
 import { Actions } from '@ngrx/effects';
 import { Store } from "@ngrx/store";
@@ -13,7 +14,8 @@ export class PostEffects {
 
     constructor(private actions$: Actions,
                 private postService: PostsService,
-                private store: Store<AppState>) { }
+                private store: Store<AppState>,
+                private router: Router) { }
 
     loadData$ = createEffect(() => {
         return this.actions$.pipe(
@@ -37,6 +39,7 @@ export class PostEffects {
                     map((data) => {
                         const post = { ...action.post, id: data.name };
                         this.store.dispatch(setLoadingSpinner({ status: false }));
+                        this.router.navigate(['/post/post-list']);
                         return addPostSuccess({ post })
                     })
                 )
@@ -51,6 +54,7 @@ export class PostEffects {
                 return this.postService.updatePosts(action.post).pipe(
                     map((post: any) => {
                         this.store.dispatch(setLoadingSpinner({ status: false }));
+                        this.router.navigate(['/post/post-list']);
                         return updatePostSuccess({ post: action.post })
                     })
                 )
