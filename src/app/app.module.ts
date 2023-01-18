@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/state/auth.effects';
 import { AuthtokenInterceptor } from './service/authtoken.interceptor';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { AuthtokenInterceptor } from './service/authtoken.interceptor';
     }),
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, 
