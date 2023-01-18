@@ -3,11 +3,15 @@ import { Router } from "@angular/router";
 import { createEffect, ofType } from "@ngrx/effects";
 import { Actions } from '@ngrx/effects';
 import { Store } from "@ngrx/store";
-import { exhaustMap, map, mergeMap, switchMap } from "rxjs";
+import { exhaustMap, filter, map, mergeMap, switchMap } from "rxjs";
 import { PostsService } from "src/app/service/posts.service";
 import { AppState } from "src/app/store/app.state";
 import { setLoadingSpinner } from "src/app/store/shared/shared.action";
 import { addPosts, addPostSuccess, deletePosts, deletePostSuccess, loadPosts, loadPostSuccess, updatePosts, updatePostSuccess } from "./posts.actions";
+import {
+    RouterNavigatedAction,
+    ROUTER_NAVIGATION,
+  } from '@ngrx/router-store';
 
 @Injectable()
 export class PostEffects {
@@ -75,5 +79,25 @@ export class PostEffects {
             })
         )
     })
+
+    getSinglePost$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(ROUTER_NAVIGATION),
+            filter((r: RouterNavigatedAction) => {
+                return r.payload.routerState.url.startsWith('/post/post-details');
+            }),
+            map((r: any) => {
+                return r.payload.routerState['queryParams']['postId'];
+            }),
+            switchMap((id) => {
+                return this.postService.getPostById(id).pipe(
+                    map((post: any) => {
+                        const postData = [{ ...post, id }];
+                        return loadPostSuccess({ posts: postData });
+                    })
+                );
+            })
+        );
+    });
    
 }
