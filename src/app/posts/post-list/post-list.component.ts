@@ -46,7 +46,7 @@ export class PostListComponent implements OnInit {
     })
   }
 
-  deleteConfirmation(postId: any) {
+  deleteConfirmation(postId: string) {
     var result = confirm("Are you sure you want to delete it?");
     if (result) {
       this.store.dispatch(setLoadingSpinner({ status: true }));
@@ -57,6 +57,14 @@ export class PostListComponent implements OnInit {
 
   deletePost(postId: any) {
     this.deleteConfirmation(postId);
+  }
+
+  postDetails(postId: any) {
+    this.router.navigate([`/post/post-details`], {
+      queryParams: {
+        postId: postId
+      }
+    })
   }
 
 }
