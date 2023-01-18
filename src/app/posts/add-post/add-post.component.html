@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title text-center">Add Post</h3>
+            <h3 class="card-title text-center">{{action === 'ADD' ? 'Add' : 'Edit'}} Post</h3>
             <form [formGroup]="postForm">
               <div class="mb-3">
                   <label class="f-500">Title <span class="text-danger">*</span></label>

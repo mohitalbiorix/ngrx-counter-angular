@@ -6,9 +6,9 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { exhaustMap, Observable, take } from 'rxjs';
-import { AppState } from '../store/app.state';
+import { AppState } from '../../store/app.state';
 import { Store } from '@ngrx/store';
-import { getToken } from '../auth/state/auth.selector';
+import { getToken } from '../../auth/state/auth.selector';
 import { Router } from '@angular/router';
 
 @Injectable()
