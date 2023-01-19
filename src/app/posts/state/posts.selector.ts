@@ -7,6 +7,9 @@ const getPostsState = createFeatureSelector<PostState>('posts');
 
 export const POST_STATE_NAME = 'posts'
 
+/**
+ * getPosts, getPostById => post selectors
+ */
 export const getPosts = createSelector(getPostsState, (state) => {
     return state.posts;
 })
@@ -18,6 +21,7 @@ export const getPosts = createSelector(getPostsState, (state) => {
         return state.posts.find((data:any)=>data.id === props.postId)
 })  */
 
+// create selector that get post based on id
 export const getPostById = createSelector(
     getPosts,
     getCurrentRoute,

@@ -20,6 +20,7 @@ export class CounterOutputComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // get counter using selector
     this.counter$ = this.store.select(getCounter);
     this.store.select(getCounter).subscribe(
       counter => {

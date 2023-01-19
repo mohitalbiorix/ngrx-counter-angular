@@ -12,6 +12,7 @@ export class PostsService {
     private http: HttpClient
   ) { }
 
+  // get all posts action
   getPosts(): Observable<Post[]> {
     return this.http
       .get<Post[]>(`https://vue-completecourse.firebaseio.com/posts.json`)
@@ -26,10 +27,12 @@ export class PostsService {
       );
   }
 
+  // add post action
   addPosts(post: Post): Observable<{ name: string }> {
     return this.http.post<{ name: string }>(`https://vue-completecourse.firebaseio.com/posts.json`, post);
   }
 
+  // update post action
   updatePosts(post: any) {
     const postData = {
       [post.id]: { title: post.title, description: post.description },
@@ -40,10 +43,12 @@ export class PostsService {
     );
   }
 
+  // delete post action
   deletePosts(id: string) {
     return this.http.delete(`https://vue-completecourse.firebaseio.com/posts/${id}.json`);
   }
 
+  // get post based on id action
   getPostById(id: string): Observable<Post> {
     return this.http.get<Post>(`https://vue-completecourse.firebaseio.com/posts/${id}.json`);
   }

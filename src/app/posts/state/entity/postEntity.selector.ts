@@ -9,6 +9,9 @@ export const POST_ENTITY_STATE_NAME = 'post_entity'
     create a selector using entity for get posts data
 */
 
+/**
+ * getPostEntity, getPostEntities, getPostEntityById => postEntity selector
+ */
 const getPostsState = createFeatureSelector<postEntityState>(POST_ENTITY_STATE_NAME);
 
 export const postEntitySelector = postsAdapter.getSelectors();

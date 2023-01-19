@@ -23,9 +23,7 @@ export class PostDetailsComponent implements OnInit {
        this.post = this.store.select(getPostById) 
     */
 
-    /*
-      * use selector with entity
-     */
+    // use selector with entity
     this.post = this.store.select(getPostEntityById);
   }
 

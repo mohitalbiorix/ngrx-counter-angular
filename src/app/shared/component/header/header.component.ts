@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
     this.isAuthenticate$ = this.store.select(isAuthenticated);
   }
 
+  // user logout action
   userLogout() {
     this.store.dispatch(autoLogout())
     this.toastr.success('LogOut Successfully!')
