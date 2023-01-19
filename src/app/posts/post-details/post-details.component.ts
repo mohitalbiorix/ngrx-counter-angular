@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
-import { getPostById } from '../state/posts.selectors';
+import { getPostEntityById } from '../state/entity/postEntity.selector';
+import { getPostById } from '../state/posts.selector';
 
 @Component({
   selector: 'app-post-details',
@@ -18,7 +19,14 @@ export class PostDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.post = this.store.select(getPostById)
+    /*  use selector without entity
+       this.post = this.store.select(getPostById) 
+    */
+
+    /*
+      * use selector with entity
+     */
+    this.post = this.store.select(getPostEntityById);
   }
 
 }

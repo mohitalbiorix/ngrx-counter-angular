@@ -6,10 +6,12 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { postReducer } from './state/posts.reducer';
-import { POST_STATE_NAME } from './state/posts.selectors';
+import { POST_STATE_NAME } from './state/posts.selector';
 import { EffectsModule } from '@ngrx/effects';
 import { PostEffects } from './state/posts.effects';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import { POST_ENTITY_STATE_NAME } from './state/entity/postEntity.selector';
+import { postEntityReducer } from './state/entity/postEntity.reducer';
 
 
 @NgModule({
@@ -23,7 +25,15 @@ import { PostDetailsComponent } from './post-details/post-details.component';
     PostsRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    StoreModule.forFeature(POST_STATE_NAME, postReducer),
+    /*
+     * register reducer without entity
+     */
+    // StoreModule.forFeature(POST_STATE_NAME, postReducer),
+    
+    /*
+     * register reducer with entity
+     */
+    StoreModule.forFeature(POST_ENTITY_STATE_NAME, postEntityReducer),
     EffectsModule.forFeature([PostEffects])
   ]
 })
