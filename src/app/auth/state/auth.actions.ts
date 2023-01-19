@@ -24,3 +24,5 @@ export const signupSuccess = createAction(
 export const autoLogin = createAction(AUTO_LOGIN);
 
 export const autoLogout = createAction(AUTO_LOGOUT);
+
+export const dummyAction = createAction('[dummy action]');
