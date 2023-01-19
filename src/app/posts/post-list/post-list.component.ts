@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
 import { setLoadingSpinner } from 'src/app/store/shared/shared.action';
-import { getPostEntities, getPostEntity } from '../state/entity/postEntity.selector';
+import { getCount, getPostEntities, getPostEntity } from '../state/entity/postEntity.selector';
 import { deletePosts, loadPosts } from '../state/posts.actions';
 import { getPosts } from '../state/posts.selector';
 
@@ -17,7 +17,8 @@ import { getPosts } from '../state/posts.selector';
 })
 export class PostListComponent implements OnInit {
 
-  posts! :Observable<Post[]>;
+  posts!: Observable<Post[]>;
+  count!: Observable<number>;
 
   constructor(
     private store: Store<AppState>,
@@ -35,7 +36,7 @@ export class PostListComponent implements OnInit {
      * use selector with entity
      */
     this.posts = this.store.select(getPostEntity);
-    console.log(this.posts);
+    this.count = this.store.select(getCount);
     this.store.dispatch(loadPosts());
   }
 
