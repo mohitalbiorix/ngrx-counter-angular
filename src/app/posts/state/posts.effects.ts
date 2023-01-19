@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { createEffect, ofType } from "@ngrx/effects";
 import { Actions } from '@ngrx/effects';
 import { Store } from "@ngrx/store";
-import { exhaustMap, filter, map, mergeMap, switchMap } from "rxjs";
+import { exhaustMap, filter, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
 import { PostsService } from "src/app/service/posts.service";
 import { AppState } from "src/app/store/app.state";
 import { setLoadingSpinner } from "src/app/store/shared/shared.action";
@@ -15,6 +15,8 @@ import {
 import { Post } from "src/app/model/posts.model";
 import { Update } from '@ngrx/entity';
 import { updateEntityPostSuccess } from "./entity/postEntity.action";
+import { getPostEntity } from "./entity/postEntity.selector";
+import { dummyAction } from "src/app/auth/state/auth.actions";
 
 @Injectable()
 export class PostEffects {
@@ -27,13 +29,18 @@ export class PostEffects {
     loadData$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(loadPosts),
-            exhaustMap((action) => {
-                return this.postService.getPosts().pipe(
-                    map((posts) => {
-                        this.store.dispatch(setLoadingSpinner({ status: false }));
-                        return loadPostSuccess({ posts })
-                    })
-                )
+            // if api is already called , then not need to call again so need to use withLatestFrom
+            withLatestFrom(this.store.select(getPostEntity)),
+            mergeMap(([action, posts]) => {
+                if (!posts.length || posts.length === 1) {
+                    return this.postService.getPosts().pipe(
+                        map((posts) => {
+                            this.store.dispatch(setLoadingSpinner({ status: false }));
+                            return loadPostSuccess({ posts })
+                        })
+                    )
+                }
+                return of(dummyAction());
             })
         )
     })
@@ -105,13 +112,17 @@ export class PostEffects {
             map((r: any) => {
                 return r.payload.routerState['queryParams']['postId'];
             }),
-            switchMap((id) => {
-                return this.postService.getPostById(id).pipe(
-                    map((post: any) => {
-                        const postData = [{ ...post, id }];
-                        return loadPostSuccess({ posts: postData });
-                    })
-                );
+            withLatestFrom(this.store.select(getPostEntity)),
+            switchMap(([id, posts]) => {
+                if (!posts.length) {
+                    return this.postService.getPostById(id).pipe(
+                        map((post: any) => {
+                            const postData = [{ ...post, id }];
+                            return loadPostSuccess({ posts: postData });
+                        })
+                    );
+                }
+                return of(dummyAction());
             })
         );
     });
