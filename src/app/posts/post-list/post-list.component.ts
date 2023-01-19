@@ -6,8 +6,9 @@ import { Observable } from 'rxjs';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
 import { setLoadingSpinner } from 'src/app/store/shared/shared.action';
+import { getPostEntities, getPostEntity } from '../state/entity/postEntity.selector';
 import { deletePosts, loadPosts } from '../state/posts.actions';
-import { getPosts } from '../state/posts.selectors';
+import { getPosts } from '../state/posts.selector';
 
 @Component({
   selector: 'app-post-list',
@@ -25,7 +26,16 @@ export class PostListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.posts = this.store.select(getPosts);
+    /*
+     * use selector without entity
+       this.posts = this.store.select(getPosts);
+     */
+    
+    /**
+     * use selector with entity
+     */
+    this.posts = this.store.select(getPostEntity);
+    console.log(this.posts);
     this.store.dispatch(loadPosts());
   }
 

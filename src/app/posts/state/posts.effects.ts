@@ -12,6 +12,9 @@ import {
     RouterNavigatedAction,
     ROUTER_NAVIGATION,
   } from '@ngrx/router-store';
+import { Post } from "src/app/model/posts.model";
+import { Update } from '@ngrx/entity';
+import { updateEntityPostSuccess } from "./entity/postEntity.action";
 
 @Injectable()
 export class PostEffects {
@@ -59,7 +62,20 @@ export class PostEffects {
                     map((post: any) => {
                         this.store.dispatch(setLoadingSpinner({ status: false }));
                         this.router.navigate(['/post/post-list']);
-                        return updatePostSuccess({ post: action.post })
+                        /* use method without entity
+                             return updatePostSuccess({ post: action.post })
+                        */
+
+                        /**
+                         * use method with entity
+                         */
+                        const updatePost: Update<Post> = {
+                            id: action.post.id,
+                            changes: {
+                                ...action.post,
+                            },
+                        };
+                        return updateEntityPostSuccess({ post: updatePost })
                     })
                 )
             })

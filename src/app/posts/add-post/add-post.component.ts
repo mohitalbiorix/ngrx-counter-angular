@@ -6,8 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
 import { setLoadingSpinner } from 'src/app/store/shared/shared.action';
+import { getPostEntityById } from '../state/entity/postEntity.selector';
 import { addPosts, updatePosts } from '../state/posts.actions';
-import { getPostById } from '../state/posts.selectors';
+import { getPostById } from '../state/posts.selector';
 
 @Component({
   selector: 'app-add-post',
@@ -28,8 +29,22 @@ export class AddPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    /* Manage by ngrx router store */
-    this.store.select(getPostById).subscribe(
+    /* 
+    * Manage by ngrx router store 
+    * use selector without entity
+
+        this.store.select(getPostById).subscribe(
+          (post) => {
+            if (post) {
+              this.post = post;
+              console.log(this.post)
+            }
+          }
+        )
+    */
+
+    /* use selector with entity */
+    this.store.select(getPostEntityById).subscribe(
       (post) => {
         if (post) {
           this.post = post;

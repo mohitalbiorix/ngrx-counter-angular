@@ -11,9 +11,12 @@ export const getPosts = createSelector(getPostsState, (state) => {
     return state.posts;
 })
 
-// export const getPostById = createSelector(getPostsState, (state: any, props: any) => {
-//     return state.posts.find((data:any)=>data.id === props.postId)
-// }) 
+
+/* 
+    * Manage by angular router, not ngrx router
+    export const getPostById = createSelector(getPostsState, (state: any, props: any) => {
+        return state.posts.find((data:any)=>data.id === props.postId)
+})  */
 
 export const getPostById = createSelector(
     getPosts,
