@@ -26,6 +26,7 @@ export class PostEffects {
                 private store: Store<AppState>,
                 private router: Router) { }
 
+    // load postData effects
     loadData$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(loadPosts),
@@ -45,6 +46,7 @@ export class PostEffects {
         )
     })
 
+    // add postData effects
     addPosts$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(addPosts),
@@ -61,6 +63,7 @@ export class PostEffects {
         )
     })
 
+     // update postData effects
     updatePosts$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(updatePosts),
@@ -89,6 +92,7 @@ export class PostEffects {
         )
     })
 
+     // delete postData effects
     deletePosts$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(deletePosts),
@@ -103,6 +107,7 @@ export class PostEffects {
         )
     })
 
+     // get single  postData effects (using ngrx router-store)
     getSinglePost$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(ROUTER_NAVIGATION),

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Post } from 'src/app/model/posts.model';
 import { AppState } from 'src/app/store/app.state';
 import { setLoadingSpinner } from 'src/app/store/shared/shared.action';
-import { getCount, getPostEntities, getPostEntity } from '../state/entity/postEntity.selector';
+import { getCount, getPostEntity } from '../state/entity/postEntity.selector';
 import { deletePosts, loadPosts } from '../state/posts.actions';
 import { getPosts } from '../state/posts.selector';
 
@@ -32,14 +32,13 @@ export class PostListComponent implements OnInit {
        this.posts = this.store.select(getPosts);
      */
     
-    /**
-     * use selector with entity
-     */
+    // use selector with entity
     this.posts = this.store.select(getPostEntity);
     this.count = this.store.select(getCount);
     this.store.dispatch(loadPosts());
   }
 
+  // go to add-post page with action 'ADD'
   onAddPage() {
     this.router.navigate(['post/add-post'], {
       queryParams: {
@@ -48,6 +47,7 @@ export class PostListComponent implements OnInit {
     })
   }
 
+  // go to add-post page with action 'EDIT'
   goEditPage(postId: any) {
     this.router.navigate(['post/add-post'], {
       queryParams: {
@@ -57,6 +57,7 @@ export class PostListComponent implements OnInit {
     })
   }
 
+  // delete confirmation model 
   deleteConfirmation(postId: string) {
     var result = confirm("Are you sure you want to delete it?");
     if (result) {
@@ -66,10 +67,12 @@ export class PostListComponent implements OnInit {
     }
   }
 
+  // delete post action
   deletePost(postId: any) {
     this.deleteConfirmation(postId);
   }
 
+  // go to post-details page
   postDetails(postId: any) {
     this.router.navigate([`/post/post-details`], {
       queryParams: {

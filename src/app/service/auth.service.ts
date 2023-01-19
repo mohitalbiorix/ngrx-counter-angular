@@ -19,6 +19,7 @@ export class AuthService {
     private store: Store<AppState>
   ) { }
 
+  // login action
   login(email: string, password: string): Observable<AuthResponseData> {
     return this.http.post<AuthResponseData>(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.FIRBASE_API_KEY}`,
@@ -26,6 +27,7 @@ export class AuthService {
     );
   }
 
+  // signup action
   signUp(email: string, password: string): Observable<AuthResponseData> {
     return this.http.post<AuthResponseData>(
       `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.FIRBASE_API_KEY}`,
@@ -33,12 +35,14 @@ export class AuthService {
     );
   }
 
+  // formatuser action that return user's data
   formatUser(data: AuthResponseData) {
     const expirationDate = new Date(new Date().getTime() + +data.expiresIn * 1000)
     const user = new User(data.email, data.idToken, data.localId, expirationDate);
     return user;
   }
 
+  // return error message based on condition
   getErrorMessage(message: string) {
     switch (message) {
       case 'EMAIL_NOT_FOUND':
@@ -52,10 +56,12 @@ export class AuthService {
     }
   }
 
+  // set userData in localStorage
   setUserInLocalStorage(user: User) {
     localStorage.setItem('userData', JSON.stringify(user))
   }
 
+  // session expired based on timeout
   runTimeOutInterval(user: User) {
     const todayDate = new Date().getTime();
     const expirationDate = user.expireDate.getTime();
@@ -65,6 +71,7 @@ export class AuthService {
     // }, timeInterval)
   }
 
+  // get userData from localStorage
   getUserFromLocalStorage() {
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
@@ -81,6 +88,7 @@ export class AuthService {
     return null;
   }
 
+  // user logout action
   logout() {
     localStorage.removeItem('userData');
     if (this.timeoutInterval) {

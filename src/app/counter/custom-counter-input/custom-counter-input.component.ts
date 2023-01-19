@@ -23,6 +23,7 @@ export class CustomCounterInputComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // get channelName using selector
     this.channelName$ = this.store.select(getChannelName)
     this.store.select(getChannelName).subscribe(
       channelName => {
@@ -32,6 +33,7 @@ export class CustomCounterInputComponent implements OnInit {
     )
   }
 
+  // add number action
   addNumber() {
     if(!this.num){
       this.toasterService.warning("Please enter a number!")
@@ -41,6 +43,7 @@ export class CustomCounterInputComponent implements OnInit {
     }
   }
 
+  // change channel action
   changeChannelName() {
     this.store.dispatch(changeChannelName())
   }

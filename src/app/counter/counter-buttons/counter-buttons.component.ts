@@ -16,14 +16,17 @@ export class CounterButtonsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // increment counter action
   onIncrementBtn() {
     this.store.dispatch(increment());
   }
 
+  // decrement counter action
   onDecrementBtn() {
     this.store.dispatch(decrement());
   }
 
+  // reset counter action
   onResetBtn() {
     this.store.dispatch(reset());
   }

@@ -21,6 +21,7 @@ export class SignUpComponent implements OnInit {
     this.initSignupform()
   }
 
+  // Initialization of signIn FormControls
   initSignupform(){
     this.signUpForm = new FormGroup({
       firstame: new FormControl('', [Validators.required]),
@@ -30,6 +31,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+   // signIn submit action
   onSignUpSubmit(){
     this.signUpForm.markAllAsTouched();
     if(!this.signUpForm.valid){

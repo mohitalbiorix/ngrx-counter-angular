@@ -72,11 +72,13 @@ export class AddPostComponent implements OnInit {
     }
   }
 
+  // update form if action is EDIT
   updatePostForm(){
     this.postForm.get('title')?.setValue(this.post?.title);
     this.postForm.get('description')?.setValue(this.post?.description);
   }
-
+  
+  // initialization of post formControls
   initForm() {
     this.postForm = new FormGroup({
       title: new FormControl(null, [
@@ -90,6 +92,7 @@ export class AddPostComponent implements OnInit {
     })
   }
 
+  // show description errors
   showDescriptionErrors() {
     const descriptionForm = this.postForm.get('description');
     if (descriptionForm?.touched && !descriptionForm.valid) {
@@ -103,7 +106,7 @@ export class AddPostComponent implements OnInit {
     return;
   }
   
-
+  // save or edit post actions
   onSavePost() {
     this.postForm.markAllAsTouched();
     if (!this.postForm.valid) {
@@ -132,6 +135,7 @@ export class AddPostComponent implements OnInit {
     }
   }
 
+  // it wll be go to post-list
   onBackToPosts() {
     window.history.back();
   }

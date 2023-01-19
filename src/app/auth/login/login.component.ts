@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     this.initLoginForm();
   }
 
+  // initialization of login formcontrols
   initLoginForm() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+   // login submit action
   onLoginSubmit() {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.invalid) {
